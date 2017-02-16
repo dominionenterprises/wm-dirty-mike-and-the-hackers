@@ -16,7 +16,9 @@ with open(inputFile, 'r') as f:
             data = json.loads(line)
             if first:
                 header = data.keys()
-                write.writerow(header)
+                # write.writerow(header)
+                # don't write header; it messes up the psql import
                 first = False
+                continue
                 
             write.writerow(data.values())
