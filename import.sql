@@ -10,4 +10,4 @@ CREATE TABLE Reviews(
 	type TEXT,
 	cool INT
 );
-\copy Reviews FROM '~/reviews.csv' CSV;
+\copy Reviews FROM '/Users/josiah.baker/tmp.dat' CSV;
