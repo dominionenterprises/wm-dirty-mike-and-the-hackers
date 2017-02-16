@@ -10,7 +10,8 @@ first = True
 inputFile = sys.argv[1]
 outPut = sys.argv[2]
 count = 0
-numLines = 1000000
+numLines = 100000
+char_set = string.ascii_letters + string.digits+ "'" + " "
 
 def numToStr(num):
 	out = ""
@@ -27,7 +28,7 @@ def numToStr(num):
 	return out
 
 def remPunc(punc):
-	out = "".join(c for c in punc if c not in (string.punctuation))
+	out = "".join(c for c in punc if c in char_set)
 	return out
 
 with open(inputFile, 'r') as f:
@@ -43,7 +44,7 @@ with open(inputFile, 'r') as f:
                 first = False
                 continue
             if count <= numLines:    
-            	write.writerow([numToStr(data.values()[5]),remPunc(data.values()[3]),data.values()[7],data.values()[9],data.values()[0]])
+                write.writerow([numToStr(data.values()[5]),remPunc(data.values()[3]),data.values()[7],data.values()[9],data.values()[0]])
             	#print(data.values())
             else:
             	sys.exit()
