@@ -7,4 +7,5 @@
 # This can be used to load to local db or Heroku
 
 python convert_to_csv.py ${PATH_TO_FILE} ${PATH_TO_OUTPUT}
-PGPASSWORD=${PGPW} psql -h ${HOST} -U ${USER} ${DB} -f import.sql
+PGPASSWORD=${PGPW} psql -h ${HOST} -U ${USER} ${DB} < import.sql
+
