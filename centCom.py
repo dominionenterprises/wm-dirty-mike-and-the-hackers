@@ -1,4 +1,5 @@
 from __future__ import print_function
+import cPickle as pickle
 import csv
 # import pandas as pd
 # import numpy as np
@@ -6,7 +7,6 @@ import csv
 
 import os
 import numpy as np
-
 
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
@@ -20,7 +20,7 @@ from keras.models import load_model
 
 class CentCom:
 
-    def __init__(self,  model_file_path, data_path='../data/', file_name='first_500k.csv', label_col='stars',
+    def __init__(self,  model_file_path, data_path='../data/', file_name='first_100k.csv', label_col='stars',
                  col_names=['stars', 'text', 'cool', 'useful', 'funny']):
 
         self.data_path = data_path
@@ -107,7 +107,7 @@ class CentCom:
         sequences = self.tokenizer.texts_to_sequences(self.texts)
 
         word_index = self.tokenizer.word_index
-        print('Found %s unique tokens.' % len(word_index))
+        # print('Found %s unique tokens.' % len(word_index))
         return sequences
 
     def prep_data(self):
@@ -177,21 +177,27 @@ class CentCom:
 
 # def main():
 #
-#     classifier = CentCom('../initial_model.h5')
+#     classifier = CentCom('initial_model.h5')
 #
 #     # 1. preprocess and build text and label lists
 #     classifier.preprocess()
 #
 #     # 2. tokenize all the texts, then given sample
 #     classifier.all_tokenize()
-#     sample = "I absolutely love this restaurant Food was delicious, service was great I could even bring my dog "
-#     classifier.predict(sample)
+#
+#     pickle.dump(classifier.tokenizer, open('review_classifier_tokenizer.pkl', 'wb'))
 #
 #
+# def load_ob():
+#     tokenizer = pickle.load(open("review_classifier_tokenizer.pkl", "rb"))
+#     new_classifier = CentCom('initial_model.h5')
 #
-#
+#     new_classifier.tokenizer = tokenizer
+#     sample = ['I absolutely loved this restaurant Great lighting service and food I could even bring my big fat dog']
+#     new_classifier.predict(sample)
 #
 # main()
+# load_ob()
 
     
 
