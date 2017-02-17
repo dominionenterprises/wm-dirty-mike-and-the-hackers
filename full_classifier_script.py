@@ -1,8 +1,9 @@
+from __future__ import print_function
 import pandas as pd
 import numpy as np
 import os
 
-from __future__ import print_function
+
 import os
 import numpy as np
 np.random.seed(1337)
@@ -15,9 +16,9 @@ from keras.layers import Conv1D, MaxPooling1D, Embedding
 from keras.models import Model
 import sys
 
-BASE_DIR = ''
+BASE_DIR = '../'
 GLOVE_DIR = BASE_DIR + 'glove.6B/'
-TEXT_DATA_DIR = BASE_DIR + 'data/first_100k.csv'
+TEXT_DATA_DIR = BASE_DIR + 'data/first_500k.csv'
 MAX_SEQUENCE_LENGTH = 1000
 MAX_NB_WORDS = 20000
 EMBEDDING_DIM = 100
@@ -39,16 +40,15 @@ f.close()
 print('Found %s word vectors.' % len(embeddings_index))
 
 #get data from csv
-reviews = pd.read_csv('data/first_100k.csv', header = None)
+reviews = pd.read_csv(TEXT_DATA_DIR, header=None)
 reviews.fillna(value = '', inplace = True)
 
-reviews['5'] = list(reviews.index.values)
-reviews.columns= ['stars', 'text', 'cool', 'useful', 'funny', 'ndx']
+reviews.columns= ['stars', 'text', 'cool', 'useful', 'funny']
 
 texts = []  # list of text samples
 labels_index = {}  # dictionary mapping label name to numeric id
 labels = []  # list of label ids
-row_ndx = 0
+
 def build_labels_dict():
     labels_index['one'] = 0
     labels_index['two'] = 1
@@ -152,5 +152,7 @@ model.compile(loss='categorical_crossentropy',
 # happy learning!
 history = model.fit(x_train, y_train, validation_data=(x_val, y_val),
           nb_epoch=2, batch_size=128)
+
+model.save('500k_model.h5')
 
 
